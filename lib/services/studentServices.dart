@@ -1,0 +1,61 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:feems/models/studentModel.dart';
+
+class studentApiService{
+
+  Future<dynamic> loginApi(String email ,String password) async{
+  var client =http.Client();
+  var url = Uri.parse("http://192.168.1.34:3001/student/login");
+  var response =await client.post(url,
+      headers: <String,String>{
+        "Content-Type" :"application/json ; charset=UTF-8"
+      },
+      body: jsonEncode(<String,String>{
+        "emailid": email,
+        "password": password,
+      })
+  );
+
+  if(response.statusCode ==200){
+    return jsonDecode(response.body);
+  }
+  else{
+    throw Exception("Fail to send data");
+  }
+}
+
+
+
+  Future<dynamic> Sentdata(String name,admissionNo,dob,age,contactno,gender,classname,department,emailid,password,requestStatus) async {
+    var client = http.Client();
+    var apiurl = Uri.parse("http://192.168.1.34:3001/student/signup");
+    var response = await client.post(apiurl, headers: <String, String>
+    {
+      "Content-Type": "application/Json;charset=UTF-8 "
+    }, body: jsonEncode(<String, String>
+    {
+      "name": name,
+      "admissionno": admissionNo,
+      "dateofbirth": dob,
+      "age": age,
+      "contactno": contactno,
+      "gender": gender,
+      "class": classname,
+      "department":department,
+      "emailid":emailid,
+      "password": password,
+      "requestStatus":requestStatus
+    }
+    )
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    }
+    else {
+      throw Exception("Failed");
+    }
+  }
+
+}
