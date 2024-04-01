@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:feems/pages/menu.dart';
-import 'package:feems/pages/scanningPage.dart';
+import 'package:feems/pages/qrcodePage.dart';
 import 'package:feems/pages/securityLogin.dart';
 import 'package:feems/pages/studentregister.dart';
 import 'package:feems/services/studentServices.dart';
@@ -30,10 +30,10 @@ class _HomePageState extends State<HomePage> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("userid", userId);
 
-      print("successfull uid" + userId);
+      print("successfull uid : " + userId);
 
         // Payment successful, navigate to SelectPackagePage
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>QRCodeImageScreen()));
 
     } else if (response["status"] == "Invalid user") {
       setState(() {

@@ -58,4 +58,28 @@ class studentApiService{
     }
   }
 
+  Future<dynamic> viewProfile(String user_ID ) async{
+    var client =http.Client();
+    var url=Uri.parse("http://192.168.1.34:3001/student/myprofile");
+    try{
+      var response =await client.post(url,
+        body: jsonEncode({"studentId":user_ID}),
+        headers:<String,String>{
+          "Content-Type": "application/json"
+        },
+      );
+      if(response.statusCode == 200){
+        return json.decode(response.body);
+      }
+      else{
+        print(response);
+        print("eroor");
+        throw Exception("Invalid");
+      }
+    }
+    finally{client.close();}
+  }
+
+
+
 }

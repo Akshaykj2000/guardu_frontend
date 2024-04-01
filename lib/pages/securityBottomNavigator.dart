@@ -1,3 +1,4 @@
+import 'package:feems/pages/qrscanner.dart';
 import 'package:feems/pages/securityHomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -47,16 +48,12 @@ class _NavigationExampleState extends State<NavigationExample> {
             label: 'Notifications',
           ),
           NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
+            icon: Icon(Icons.qr_code_scanner),
+            label: 'Scanner',
           ),
         ],
       ),
       body: <Widget>[
-        /// SecurityHomeScreen page (Default page)
         SecurityHomeScreen(),
 
         /// Notifications page
@@ -82,47 +79,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           ),
         ),
 
-        /// Messages page
-        ListView.builder(
-          reverse: true,
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                ),
-              ),
-            );
-          },
-        ),
+        QRScannerPage()
       ][currentPageIndex],
     );
   }
