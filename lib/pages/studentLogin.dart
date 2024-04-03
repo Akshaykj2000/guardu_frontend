@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:feems/pages/hodLoginPage.dart';
 import 'package:feems/pages/menu.dart';
-import 'package:feems/pages/qrcodePage.dart';
 import 'package:feems/pages/securityLogin.dart';
+import 'package:feems/pages/studentBottomNavigator.dart';
 import 'package:feems/pages/studentregister.dart';
 import 'package:feems/services/studentServices.dart';
 import 'package:flutter/material.dart';
@@ -26,15 +26,18 @@ class _HomePageState extends State<HomePage> {
     }
    else if (response["status"] == "success") {
       String userId = response["userdata"]["_id"].toString();
+      String dept = response["userdata"]["department"].toString();
 
       SharedPreferences.setMockInitialValues({});
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("userid", userId);
+      preferences.setString("dept", dept);
 
       print("successfull uid : " + userId);
+      print("Department is "+dept);
 
         // Payment successful, navigate to SelectPackagePage
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>QRCodeImageScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentNavigationBarApp()));
 
     } else if (response["status"] == "Invalid user") {
       setState(() {

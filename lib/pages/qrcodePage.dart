@@ -70,8 +70,8 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
           Center(
             child: imageUrl.isNotEmpty
                 ? Container(
-              width: 270,
-              height: 270,
+              width: 250,
+              height: 250,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: MemoryImage(
