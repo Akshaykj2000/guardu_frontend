@@ -132,7 +132,16 @@ class _AdminHomeScreenState extends State<adminHomeScreen> {
                 },
               );
             } else {
-              return CircularProgressIndicator();
+              return
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+
+                  Image.asset('assets/img.png', width: 400, height: 400),
+
+              Text("No Request from faculty ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.black54),)
+                ],
+            );
             }
           },
         ),

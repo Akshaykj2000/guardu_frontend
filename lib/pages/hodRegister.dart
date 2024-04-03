@@ -1,20 +1,21 @@
+import 'package:feems/pages/hodLoginPage.dart';
 import 'package:feems/pages/studentLogin.dart';
+import 'package:feems/services/hodServices.dart';
 import 'package:feems/services/studentServices.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class StudentRegister extends StatefulWidget {
-  const StudentRegister({Key? key}) : super(key: key);
+class hodRegister extends StatefulWidget {
+  const hodRegister({Key? key}) : super(key: key);
 
   @override
-  State<StudentRegister> createState() => _StudentRegisterState();
+  State<hodRegister> createState() => _hodRegisterState();
 }
 
-class _StudentRegisterState extends State<StudentRegister> {
-  String? gender , department ,classname;
-  String requestStatus = "nill";
+class _hodRegisterState extends State<hodRegister> {
+  String? gender , department ;
+  String status = "pending";
   TextEditingController name = TextEditingController();
-  TextEditingController admissionNo = TextEditingController();
   TextEditingController dob = TextEditingController();
   TextEditingController age = TextEditingController();
   TextEditingController contactno = TextEditingController();
@@ -52,10 +53,10 @@ class _StudentRegisterState extends State<StudentRegister> {
   }
 
   void regUser() async {
-    final response = await studentApiService().Sentdata(
-      name.text, admissionNo.text, dob.text, age.text, contactno.text, gender,
-        classname,department,emailid.text,password.text,requestStatus
-    );
+
+
+    final response =await hodApiService().Sentdata(name.text, department, gender, dob.text, age.text, contactno.text, status,
+        emailid.text, password.text);
 
     if (response['status'] == 'success') {
       print("Successfully added");
@@ -70,7 +71,7 @@ class _StudentRegisterState extends State<StudentRegister> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context); // Close the dialog
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage())) ;// Go back to the previous screen
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>hodLogin())) ;
                 },
                 child: Text("OK",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87)),
               ),
@@ -105,7 +106,8 @@ class _StudentRegisterState extends State<StudentRegister> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(25),
+            color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -116,35 +118,65 @@ class _StudentRegisterState extends State<StudentRegister> {
                     border: OutlineInputBorder(),
                     hintText: "Enter your name",
                     labelText: "Name",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
-                    filled: true,
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextField(
-                  controller: admissionNo,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Enter your admission No.",
-                    labelText: "Admission No.",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
+                    fillColor: Colors.white,
                     filled: true,
                   ),
                 ),
                 SizedBox(height: 20),
 
-                TextField(
-                  controller: contactno,
-                  keyboardType: TextInputType.number,
+                DropdownButtonFormField<String>(
+                  value: department,
+                  onChanged: (newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        department = newValue;
+                      });
+                    }
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter your contact No.",
-                    labelText: "Contact No.",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
+                    hintText: "Department",
+                    labelText: "Select Department",
+                    fillColor: Colors.white,
                     filled: true,
                   ),
+                  items: <String>['MCA', 'MBA', 'BTECH','Other']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 20),
+
+                DropdownButtonFormField<String>(
+                  value: gender,
+                  onChanged: (newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        gender = newValue;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Gender",
+                    labelText: "Select Gender",
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                  items: <String>['Male', 'Female', 'Other']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 20),
+
+
                 Row(
                   children: [
                     Expanded(
@@ -182,83 +214,16 @@ class _StudentRegisterState extends State<StudentRegister> {
 
                 SizedBox(height: 20),
 
-                DropdownButtonFormField<String>(
-                  value: gender,
-                  onChanged: (newValue) {
-                    if (newValue != null) {
-                      setState(() {
-                        gender = newValue;
-                      });
-                    }
-                  },
+                TextField(
+                  controller: contactno,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Gender",
-                    labelText: "Select Gender",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
+                    hintText: "Enter your contact No.",
+                    labelText: "Contact No.",
+                    fillColor: Colors.white,
                     filled: true,
                   ),
-                  items: <String>['Male', 'Female', 'Other']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-
-                SizedBox(height: 20),
-
-                DropdownButtonFormField<String>(
-                  value: department,
-                  onChanged: (newValue) {
-                    if (newValue != null) {
-                      setState(() {
-                        department = newValue;
-                      });
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Department",
-                    labelText: "Select Department",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
-                    filled: true,
-                  ),
-                  items: <String>['MCA', 'MBA', 'BTECH','Other']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-
-                SizedBox(height: 20),
-
-                DropdownButtonFormField<String>(
-                  value: classname,
-                  onChanged: (newValue) {
-                    if (newValue != null) {
-                      setState(() {
-                        classname = newValue;
-                      });
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "class",
-                    labelText: "Select class",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
-                    filled: true,
-                  ),
-                  items: <String>['A', 'B', 'C']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
 
                 SizedBox(height: 50),
@@ -268,7 +233,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                     border: OutlineInputBorder(),
                     hintText: "Enter your email ID",
                     labelText: "Email ID",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
+                    fillColor: Colors.white,
                     filled: true,
                   ),
                 ),
@@ -280,11 +245,12 @@ class _StudentRegisterState extends State<StudentRegister> {
                     border: OutlineInputBorder(),
                     hintText: "Password",
                     labelText: "Password",
-                    fillColor: Color(0xFF0dadae0).withOpacity(0.2),
+                    fillColor: Colors.white,
                     filled: true,
                     suffixIcon: Icon(Icons.key_outlined, color: Colors.black87),
                   ),
                 ),
+
                 SizedBox(height: 40),
                 SizedBox(
                   width: 400,

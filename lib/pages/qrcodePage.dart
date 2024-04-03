@@ -18,12 +18,9 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
   }
 
   Future<void> getQRCodeImage() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String studentId = prefs.getString("userid") ?? "";
-    print("Student id :"+studentId);
-
-
+    print("Student id :" + studentId);
 
     var client = http.Client();
     var apiUri = Uri.parse("http://192.168.1.34:3001/qrcode/getQrCodeImage");
@@ -33,12 +30,9 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
         "Content-Type": "application/json; charset=UTF-8"
       },
       body: jsonEncode(<String, String>
-      { 'studentId': studentId
-      }
+      { 'studentId': studentId }
       ),
     );
-
-
 
     if (response.statusCode == 200) {
       setState(() {
@@ -49,21 +43,55 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Code Image'),
-      ),
-      body: Center(
-        child: imageUrl.isEmpty
-            ? CircularProgressIndicator()
-            : Image.memory(
-          base64Decode(imageUrl.split(',').last),
-          width: 200,
-          height: 200,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: Image.asset('assets/LOGO4.png', width: 143, height: 35),
+            ),
+          ],
         ),
+        shape: Border(
+          bottom: BorderSide(
+            color: Colors.black26,
+            width: 1.0, // Border width
+          ),
+        ),
+      ),
+      body: Stack(
+        children: [
+          Center(
+            child: imageUrl.isNotEmpty
+                ? Container(
+              width: 270,
+              height: 270,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: MemoryImage(
+                    base64Decode(imageUrl.split(',').last),
+                  ),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )
+                :    Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+
+                Image.asset('assets/img.png', width: 400, height: 400),
+
+                Text("No QR code available ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.black54),)
+              ],
+            )
+          ),
+        ],
       ),
     );
   }
