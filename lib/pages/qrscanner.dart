@@ -72,11 +72,20 @@ class _QRScannerPageState extends State<QRScannerPage> {
   Widget buildAlertDialog(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white, // Set background color
-      title: Text(
-        'Valid QR Code',
-        style: TextStyle(color: Colors.green[500],fontWeight: FontWeight.w500), // Set text color
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.qr_code_scanner, // Adjust the icon as needed
+            size: 40, color: Colors.green[400],// Adjust the size of the icon as needed
+          ),
+          SizedBox(width: 20), // Add space between icon and text
+          Text(
+            'Scanned Successfully',
+            style: TextStyle(color: Colors.green[500],fontWeight: FontWeight.w500,fontSize: 20), // Set text color
+          ),
+        ],
       ),
-
     );
   }
 

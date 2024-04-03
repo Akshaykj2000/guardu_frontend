@@ -80,6 +80,35 @@ class studentApiService{
     finally{client.close();}
   }
 
+  Future<dynamic> studentExit(String studentId,String name,admissionno,department,classname,contactno,gender) async {
+    var client = http.Client();
+    var apiurl = Uri.parse("http://192.168.1.34:3001/qrcode/storeStudentDetails");
+    var response = await client.post(apiurl, headers: <String, String>
+    {
+      "Content-Type": "application/Json;charset=UTF-8 "
+    }, body: jsonEncode(<String, String>
+    {
+      "studentId":studentId,
+      "name": name,
+      "admissionno": admissionno,
+      "department":department,
+      "class": classname,
+      "contactno":contactno,
+      "gender": gender,
+    }
+    )
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    }
+    else {
+      throw Exception("Failed");
+    }
+  }
+
+
+
+
 
 
 }

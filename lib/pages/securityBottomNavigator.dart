@@ -30,6 +30,7 @@ class _NavigationExampleState extends State<NavigationExample> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.blue[800],
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -39,16 +40,16 @@ class _NavigationExampleState extends State<NavigationExample> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
+            selectedIcon: Icon(Icons.home,color: Colors.black,),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
+            icon: Badge(child: Icon(Icons.notifications,color: Colors.black,)),
             label: 'Notifications',
           ),
           NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner),
+            icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
             label: 'Scanner',
           ),
         ],
@@ -63,7 +64,7 @@ class _NavigationExampleState extends State<NavigationExample> {
             children: <Widget>[
               Card(
                 child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
+                  leading: Icon(Icons.notifications,color: Colors.black,),
                   title: Text('Notification 1'),
                   subtitle: Text('This is a notification'),
                 ),
@@ -79,7 +80,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           ),
         ),
 
-        QRScannerPage()
+        QRScannerPage(),
       ][currentPageIndex],
     );
   }
