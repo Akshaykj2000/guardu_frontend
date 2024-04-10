@@ -58,7 +58,7 @@ class _studentHomePageState extends State<studentHomePage> {
                     children: [
                       HomeCard(
                         onPress: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>studentRequest()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentRequest()));
                         },
                         icon: Icons.send,
                         title: 'Request ',

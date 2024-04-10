@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:feems/models/hodModel.dart';
 import 'package:http/http.dart' as http;
 
 class hodApiService{
 
   Future<dynamic> loginApi(String email ,String password) async{
     var client =http.Client();
-    var url = Uri.parse("http://192.168.1.34:3001/hod/login");
+    var url = Uri.parse("http://192.168.1.35:3001/hod/login");
     var response =await client.post(url,
         headers: <String,String>{
           "Content-Type" :"application/json ; charset=UTF-8"
@@ -30,7 +31,7 @@ class hodApiService{
 
   Future<dynamic> Sentdata(String hodname,department,gender,dob,age,phone,status,email,hodpassword) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.34:3001/hod/signup");
+    var apiurl = Uri.parse("http://192.168.1.35:3001/hod/signup");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -56,6 +57,8 @@ class hodApiService{
       throw Exception("Failed");
     }
   }
+
+
 
 
 }

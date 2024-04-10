@@ -1,50 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:feems/models/hodModel.dart';
+import 'package:feems/services/adminServices.dart';
 
-class studentRequest extends StatefulWidget {
+class StudentRequest extends StatefulWidget {
+  const StudentRequest({Key? key}) : super(key: key);
+
   @override
-  _studentRequestState createState() => _studentRequestState();
+  State<StudentRequest> createState() => _ViewHodsState();
 }
 
-class _studentRequestState extends State<studentRequest> {
-  List<dynamic> _hodList = [];
-  String _selectedHod = '';
-  String dept = '',department='',userId=''; // Department fetched from SharedPreferences or other storage
+class _ViewHodsState extends State<StudentRequest> {
+  Future<List<HodModel>>? data;
 
   @override
   void initState() {
-
     super.initState();
-    // Fetch HODs corresponding to the department
-    _fetchHODs();
-  }
-
-  Future<void> _fetchHODs() async {
-    try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-       userId = preferences.getString("userid") ?? "";
-      department= preferences.getString("dept") ?? "";
-
-      final response = await http.post(
-        Uri.parse('http://192.168.1.34:3001/hod/getHODsByDepartment'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{'department': department}),
-      );
-      if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
-        setState(() {
-          _hodList = responseData['hodList'];
-        });
-      } else {
-        throw Exception('Failed to load HODs');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
+    data = adminApiService().getAccptedHodApi();
   }
 
   @override
@@ -62,46 +33,118 @@ class _studentRequestState extends State<studentRequest> {
             ),
           ],
         ),
-        shape: Border(
+        shape: const Border(
           bottom: BorderSide(
             color: Colors.black26,
             width: 1.0, // Border width
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            DropdownButton<String>(
-              value: _selectedHod,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedHod = newValue!;
-                });
-              },
-              items: _hodList.map<DropdownMenuItem<String>>((dynamic hod) {
-                return DropdownMenuItem<String>(
-                  value: hod['_id'],
-                  child: Text(hod['name']),
-                );
-              }).toList(),
-              hint: Text('Select HOD'),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'SELECT FACULTY', // Your text here
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue[800],
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (_selectedHod.isNotEmpty) {
-                  print('Selected HOD ID: $_selectedHod');
-                  // Perform further actions here
-                } else {
-                  print('Please select a HOD');
-                }
-              },
-              child: Text('Submit'),
+          ),
+          Expanded(
+            child: Container(
+
+              color: Colors.white,
+              padding: EdgeInsets.all(8),
+              child: FutureBuilder(
+                future: data,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final hod = snapshot.data![index];
+                        return Card(
+                          color: Colors.blue[800],
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius: 21,
+                                  backgroundColor: Colors.white,
+                                  child: Text(
+                                    hod.hodname[0],
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 21,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        hod.hodname,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        snapshot.data![index].department,
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.white),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        ' ${hod.email}',
+                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,
+                                          color: Colors.blue[100],),
+                                      ),
+                                      Text(
+                                        ' ${hod.phone}',
+                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,
+                                          color: Colors.blue[100],),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                                ElevatedButton(onPressed: (){}, child: Text("Send",
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black87),))
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Text("No data available"),
+                    );
+                  }
+                },
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
