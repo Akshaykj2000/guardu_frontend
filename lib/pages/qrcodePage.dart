@@ -1,3 +1,5 @@
+import 'package:feems/pages/myProfile.dart';
+import 'package:feems/pages/studentBottomNavigator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +11,7 @@ class QRCodeImageScreen extends StatefulWidget {
 }
 
 class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
-  String imageUrl = '';
+  String imageUrl = '',name='',studentId='';
 
   @override
   void initState() {
@@ -19,7 +21,9 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
 
   Future<void> getQRCodeImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String studentId = prefs.getString("userid") ?? "";
+     studentId = prefs.getString("userid") ?? "";
+
+     name = prefs.getString("name") ?? "";
     print("Student id :" + studentId);
 
     var client = http.Client();
@@ -46,6 +50,7 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -65,33 +70,94 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: imageUrl.isNotEmpty
-                ? Container(
+      body: Center(
+        child: imageUrl.isNotEmpty
+            ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              name,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            SizedBox(height: 20),
+            Container(
               width: 250,
               height: 250,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: MemoryImage(
-                    base64Decode(imageUrl.split(',').last),
-                  ),
-                  fit: BoxFit.contain,
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Image.memory(
+                        base64Decode(imageUrl.split(',').last),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            )
-                :    Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Scan this QR Code",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black54),
+            ),
+            SizedBox(height: 70),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                SizedBox(
+                  height: 47,width: 120,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.blue[800],
+                      side: BorderSide(color: Colors.blueAccent),
+                    ),
 
-                Image.asset('assets/img.png', width: 400, height: 400),
+                    onPressed: () {  Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentNavigationBarApp()));
+                    },
+                    child: Text('Back', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.blue[800]),),
+                  ),
+                ),
+                SizedBox(
+                  height: 47,width: 130,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        foregroundColor: Colors.white,
+                        side: BorderSide(color: Colors.blue),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)
+                        )
+                    ),
 
-                Text("No QR code available ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.black54),)
+                    onPressed:(){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile(studentId: studentId)));
+                    },
+                    child: Text('Myprofile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.white),),
+                  ),
+                ),
               ],
-            )
-          ),
-        ],
+            ),
+          ],
+        )
+            : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/img.png', width: 200, height: 200),
+            SizedBox(height: 20),
+            Text(
+              "No QR code available ",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black54),
+            ),
+          ],
+        ),
       ),
     );
   }

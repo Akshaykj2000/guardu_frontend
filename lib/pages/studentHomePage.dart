@@ -1,15 +1,32 @@
+import 'package:feems/pages/myProfile.dart';
 import 'package:feems/pages/qrcodePage.dart';
+import 'package:feems/pages/studentLogin.dart';
 import 'package:feems/pages/studentRequest.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class studentHomePage extends StatefulWidget {
+
   const studentHomePage({Key? key}) : super(key: key);
 
   @override
   State<studentHomePage> createState() => _studentHomePageState();
 }
 
+
 class _studentHomePageState extends State<studentHomePage> {
+  late String studentId;
+
+  void initState() {
+    super.initState();
+    _fetchHODs();
+  }
+
+  Future<void> _fetchHODs() async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+     studentId = preferences.getString("userid") ?? "";
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +43,12 @@ class _studentHomePageState extends State<studentHomePage> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));},
+            icon: Icon(Icons.logout, color: Colors.black),
+          ),
+        ],
         shape: const Border(
           bottom: BorderSide(
             color: Colors.black26,
@@ -66,7 +89,7 @@ class _studentHomePageState extends State<studentHomePage> {
                       ),
                       HomeCard(
                         onPress: () {
-                          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile(studentId: studentId)));
                         },
                         icon: Icons.person,
                         title: 'My Profile',
