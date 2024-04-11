@@ -58,6 +58,30 @@ class hodApiService{
     }
   }
 
+  Future<dynamic> SendRequest(String hodId,studentId,subject,description,department) async {
+    var client = http.Client();
+    var apiurl = Uri.parse("http://192.168.1.35:3001/student/requestMessage");
+    var response = await client.post(apiurl, headers: <String, String>
+    {
+      "Content-Type": "application/Json;charset=UTF-8 "
+    }, body: jsonEncode(<String, String>
+    {
+      "hodId": hodId,
+      "studentId":studentId,
+      "subject": subject,
+      "description": description,
+      "department": department
+    }
+    )
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    }
+    else {
+      throw Exception("Failed");
+    }
+  }
+
 
 
 

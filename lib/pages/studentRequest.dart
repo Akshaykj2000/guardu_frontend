@@ -1,6 +1,8 @@
+import 'package:feems/pages/messagePage.dart';
 import 'package:flutter/material.dart';
 import 'package:feems/models/hodModel.dart';
 import 'package:feems/services/adminServices.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentRequest extends StatefulWidget {
   const StudentRequest({Key? key}) : super(key: key);
@@ -11,11 +13,20 @@ class StudentRequest extends StatefulWidget {
 
 class _ViewHodsState extends State<StudentRequest> {
   Future<List<HodModel>>? data;
+  String  dept = '';
 
   @override
   void initState() {
     super.initState();
     data = adminApiService().getAccptedHodApi();
+    _fetchHODs();
+  }
+  @override
+  Future<void> _fetchHODs() async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    dept = preferences.getString("dept") ?? "";
+    print("successfull uid : " + dept);
   }
 
   @override
@@ -69,7 +80,11 @@ class _ViewHodsState extends State<StudentRequest> {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
+
                         final hod = snapshot.data![index];
+                        if (hod.department != dept) {
+                          return SizedBox.shrink(); // Skip rendering the card
+                        }
                         return Card(
                           color: Colors.blue[800],
                           elevation: 5,
@@ -122,12 +137,17 @@ class _ViewHodsState extends State<StudentRequest> {
                                         style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,
                                           color: Colors.blue[100],),
                                       ),
+
                                     ],
                                   ),
                                 ),
 
 
-                                ElevatedButton(onPressed: (){}, child: Text("Send",
+                                ElevatedButton(onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagePage(
+                                    hodName: snapshot.data![index].hodname,
+                                    hodId: snapshot.data![index].id)));
+                                }, child: Text("Send",
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black87),))
                               ],
                             ),
@@ -135,7 +155,9 @@ class _ViewHodsState extends State<StudentRequest> {
                         );
                       },
                     );
-                  } else {
+                  }
+
+                  else {
                     return Center(
                       child: Text("No data available"),
                     );

@@ -27,14 +27,17 @@ class _HomePageState extends State<HomePage> {
    else if (response["status"] == "success") {
       String userId = response["userdata"]["_id"].toString();
       String dept = response["userdata"]["department"].toString();
+      String name = response["userdata"]["name"].toString();
 
       SharedPreferences.setMockInitialValues({});
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("userid", userId);
       preferences.setString("dept", dept);
+      preferences.setString("name", name);
 
       print("successfull uid : " + userId);
       print("Department is "+dept);
+      print("Name is "+name);
 
         // Payment successful, navigate to SelectPackagePage
         Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentNavigationBarApp()));
