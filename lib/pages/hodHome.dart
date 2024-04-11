@@ -1,5 +1,4 @@
-import 'package:feems/pages/qrcodePage.dart';
-import 'package:feems/pages/studentHomePage.dart';
+import 'package:feems/pages/facultyHomePage.dart';
 import 'package:flutter/material.dart';
 
 class HodNavigationBarApp extends StatelessWidget {
@@ -30,57 +29,35 @@ class _NavigationExampleState extends State<NavigationExample> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Colors.white,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.blue[200],
+
+        indicatorColor: Colors.black,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home,color: Colors.black,),
+            selectedIcon: Icon(Icons.home,color: Colors.white,),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
+
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications,color: Colors.black,)),
-            label: 'Notifications',
+            icon: Icon(Icons.account_box,),
+            label: 'Myprofile',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
-            label: 'QRcode',
-          ),
+
+
         ],
       ),
       body: <Widget>[
-        studentHomePage(),
+     FacultyHomeScreen(),
+     FacultyHomeScreen(),
 
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications,color: Colors.black,),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-            ],
-          ),
-        ),
 
-        QRCodeImageScreen(),
       ][currentPageIndex],
     );
   }

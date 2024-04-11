@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:feems/pages/hodHome.dart';
 import 'package:feems/pages/hodRegister.dart';
-import 'package:feems/pages/securityBottomNavigator.dart';
 import 'package:feems/pages/studentLogin.dart';
 import 'package:feems/services/hodServices.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _hodLoginState extends State<hodLogin> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("hodid", userId);
 
-      print("successfull hodid" + userId);
+      print("successfull hodid in LoginPage :" + userId);
       String statusOfHod = response["userdata"]["status"].toString();
       if(statusOfHod =="pending" )
       {
@@ -41,7 +41,7 @@ class _hodLoginState extends State<hodLogin> {
         });
       }
       else{
-        Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationBarApp()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HodNavigationBarApp()));
       }
     } else if (response["status"] == "Invalid user") {
       setState(() {

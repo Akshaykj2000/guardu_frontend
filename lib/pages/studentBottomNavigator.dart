@@ -45,8 +45,8 @@ class _NavigationExampleState extends State<NavigationExample> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications,color: Colors.black,)),
-            label: 'Notifications',
+            icon: Badge(child: Icon(Icons.message_rounded,color: Colors.black,)),
+            label: 'Status',
           ),
           NavigationDestination(
             icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
@@ -56,8 +56,6 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         studentHomePage(),
-
-        /// Notifications page
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(
@@ -79,6 +77,7 @@ class _NavigationExampleState extends State<NavigationExample> {
             ],
           ),
         ),
+
 
         QRCodeImageScreen(),
       ][currentPageIndex],

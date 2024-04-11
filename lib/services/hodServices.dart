@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:feems/models/hodModel.dart';
+import 'package:feems/models/messageModel.dart';
 import 'package:http/http.dart' as http;
 
 class hodApiService{
@@ -82,6 +83,78 @@ class hodApiService{
     }
   }
 
+
+  Future<List<MessageModel>> getMessagesForHOD(String hodId) async {
+
+    var client = http.Client();
+    var apiUri = Uri.parse("http://192.168.1.35:3001/student/requestDetails");
+    var response = await client.post(apiUri,
+      headers: <String, String>
+      {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: jsonEncode(<String, String>
+      { 'hodId': hodId
+      }
+      ),
+    );
+    if (response.statusCode == 200) {
+      return messageModelFromJson(response.body);
+    }
+    else {
+      throw Exception("Failed to send data");
+    }
+  }
+
+  Future<dynamic> acceptStudentMessage(String requestId,String studentId,String admissionno,String studentName) async {
+
+    var client = http.Client();
+    var apiUri = Uri.parse("http://192.168.1.35:3001/qrcode/createQrCode");
+    var response = await client.post(apiUri,
+      headers: <String, String>
+      {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: jsonEncode(<String, String>
+      {
+        'requestId': requestId,
+        'studentId': studentId,
+        'admissionno': admissionno,
+        'studentName': studentName,
+      }
+      ),
+    );
+    if (response.statusCode == 200) {
+      var resp = response.body;
+      return jsonDecode(resp);
+    }
+    else {
+      throw Exception("Failed to send data");
+    }
+  }
+
+  Future<dynamic> rejectMessage(String requestId) async {
+
+    var client = http.Client();
+    var apiUri = Uri.parse("http://192.168.1.35:3001/student/rejectMessage");
+    var response = await client.post(apiUri,
+      headers: <String, String>
+      {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: jsonEncode(<String, String>
+      { '_id': requestId
+      }
+      ),
+    );
+    if (response.statusCode == 200) {
+      var resp = response.body;
+      return jsonDecode(resp);
+    }
+    else {
+      throw Exception("Failed to send data");
+    }
+  }
 
 
 
