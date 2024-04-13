@@ -102,5 +102,32 @@ class securityApiService{
     }
   }
 
+  Future<dynamic> SendGuestData(String securityId,description,name,phoneno,typeofuser,vehicle,eventType) async {
+    var client = http.Client();
+    var apiurl = Uri.parse("http://192.168.1.33:3001/security/entrylog");
+    var response = await client.post(apiurl, headers: <String, String>
+    {
+      "Content-Type": "application/Json;charset=UTF-8 "
+    }, body: jsonEncode(<String, String>
+    {
+      "securityId": securityId,
+      "description": description,
+      "name": name,
+      "phoneno": phoneno,
+      "typeofuser": typeofuser,
+      "vehicle": vehicle,
+      "eventType":eventType
+    }
+    )
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    }
+    else {
+      throw Exception("Failed");
+    }
+  }
+
+
 
 }

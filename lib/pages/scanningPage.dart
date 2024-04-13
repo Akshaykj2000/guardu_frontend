@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:feems/pages/securityAddGust.dart';
 import 'package:feems/pages/securityAddVehicleDetails.dart';
 import 'package:feems/pages/securityBottomNavigator.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black87,
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 30.0),
-              child: Image.asset('assets/LOGO4.png', width: 143, height: 35),
+              child: Image.asset('assets/LOGO3.png', width: 143, height: 35),
             ),
           ],
         ),
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         width: 300,
                         height: 300,
-                        color: Colors.grey[300]!,
+                        color: Colors.grey[500]!,
                       ),
                     if (imageFile != null) Image.file(File(imageFile!.path)),
                     Row(
@@ -149,41 +149,65 @@ class _MyHomePageState extends State<MyHomePage> {
                             scannedText,
                             style: TextStyle(fontSize: 20),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: 47,width: 120,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.blue[800],
-                                    side: BorderSide(color: Colors.blueAccent),
-                                  ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    height: 47,width: 120,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: Colors.blue[800],
+                                        side: BorderSide(color: Colors.blueAccent),
+                                      ),
 
-                                  onPressed: () {  Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationBarApp()));
-                                  },
-                                  child: Text('Back', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.blue[800]),),
-                                ),
+                                      onPressed: () {  Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationBarApp()));
+                                      },
+                                      child: Text('Back', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.blue[800]),),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 47,width: 120,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.blue[900],
+                                          foregroundColor: Colors.white,
+                                          side: BorderSide(color: Colors.blue),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(50)
+                                          )
+                                      ),
+
+                                      onPressed:(){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>securityAddVehicle(
+                                            vehicleNumber:scannedText
+                                           )));
+                                      },
+                                      child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              SizedBox(height: 13),
                               SizedBox(
-                                height: 47,width: 120,
+                                height: 47,width: 270,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue[800],
-                                      foregroundColor: Colors.white,
-                                      side: BorderSide(color: Colors.blue),
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: Colors.black,
+                                      side: BorderSide(color: Colors.black),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50)
                                       )
                                   ),
 
                                   onPressed:(){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>securityAddVehicle(
-                                        vehicleNumber:scannedText
-                                       )));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>securityAddGuest()));
                                   },
-                                  child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),),
+                                  child: Text('Skip', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black87),),
                                 ),
                               ),
                             ],

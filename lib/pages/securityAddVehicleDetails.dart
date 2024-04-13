@@ -36,19 +36,8 @@ class _securityAddVehicleState extends State<securityAddVehicle> {
     String inputString= widget.vehicleNumber;
     String vno=inputString.replaceAll(RegExp(r'\s+'), '');
 
-    print("successfull uid : " + securityId);
-    print("successfull uid : " + description.text);
-    print("successfull uid : " + name.text);
-    print("successfull uid : " + phoneno.text);
-    print("successfull uid : " + typeofuser.toString());
-    print("successfull uid : " + vehicle);
-    print("successfull uid : " + vno.toString());
-    print("successfull uid : " + vehicleName.text);
-    print("successfull uid : " + vehicleType.toString());
-    print("successfull uid : " + eventType);
+    if (description.text.isNotEmpty && name.text.isNotEmpty && phoneno.text.isNotEmpty && typeofuser != null && vehicleName.text.isNotEmpty && vehicleType != null && vno !='' ) {
 
-    if (description.text.isNotEmpty && name.text.isNotEmpty && phoneno.text.isNotEmpty && typeofuser != null && vehicleName.text.isNotEmpty && vehicleType != null ) {
-      print("All fields are filled.");
       final response = await securityApiService().Senddata(securityId, description.text, name.text, phoneno.text, typeofuser.toString(), vehicle, vno.toString(), vehicleName.text, vehicleType.toString(), eventType);
       if (response['status'] == 'success') {
         print("Successfully added");
@@ -136,6 +125,7 @@ class _securityAddVehicleState extends State<securityAddVehicle> {
                     labelText: "Name",
                     fillColor: Colors.white,
                     filled: true,
+                    suffixIcon: Icon(Icons.drive_file_rename_outline, color: Colors.black87),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -148,6 +138,7 @@ class _securityAddVehicleState extends State<securityAddVehicle> {
                     labelText: "Contact No.",
                     fillColor: Colors.white,
                     filled: true,
+                    suffixIcon: Icon(Icons.contact_phone, color: Colors.black87),
                   ),
                 ),
 
@@ -187,6 +178,7 @@ class _securityAddVehicleState extends State<securityAddVehicle> {
                     labelText: "Enter entry reason",
                     fillColor: Colors.white,
                     filled: true,
+                    suffixIcon: Icon(Icons.clear_all_rounded, color: Colors.black87),
                   ),
                 ),
 
@@ -219,14 +211,13 @@ class _securityAddVehicleState extends State<securityAddVehicle> {
                 SizedBox(height: 20),
                 TextField(
                   controller: vehicleName,
-                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Vehicle Name",
                     labelText: "Vehicle Name",
                     fillColor: Colors.white,
                     filled: true,
-                    suffixIcon: Icon(Icons.key_outlined, color: Colors.black87),
+                    suffixIcon: Icon(Icons.local_taxi_rounded, color: Colors.black87),
                   ),
                 ),
 
