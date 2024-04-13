@@ -45,8 +45,8 @@ class _NavigationExampleState extends State<NavigationExample> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications,color: Colors.black,)),
-            label: 'Notifications',
+            icon: Badge(child: Icon(Icons.smart_display,color: Colors.black,)),
+            label: 'Log',
           ),
           NavigationDestination(
             icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
@@ -65,15 +65,15 @@ class _NavigationExampleState extends State<NavigationExample> {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications,color: Colors.black,),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('Display 1'),
+                  subtitle: Text('This is a Display'),
                 ),
               ),
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('Display 2'),
+                  subtitle: Text('This is a Display'),
                 ),
               ),
             ],

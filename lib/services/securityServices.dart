@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:feems/models/entryModel.dart';
-import 'package:feems/models/hodModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:feems/models/securityModel.dart';
 
 class securityApiService{
 
 
   Future<dynamic> loginApi(String email ,String password) async{
     var client =http.Client();
-    var url = Uri.parse("http://192.168.1.35:3001/security/securitylogin");
+    var url = Uri.parse("http://192.168.1.33:3001/security/securitylogin");
     var response =await client.post(url,
         headers: <String,String>{
           "Content-Type" :"application/json ; charset=UTF-8"
@@ -36,7 +34,7 @@ class securityApiService{
   {
 
   var client =http.Client();
-  var apiUrl= Uri.parse("http://192.168.1.35:3001/admin/addsecurity");
+  var apiUrl= Uri.parse("http://192.168.1.33:3001/admin/addsecurity");
 
   var response =await client.post(apiUrl,
   headers: <String,String>{
@@ -63,7 +61,7 @@ class securityApiService{
 
   Future<List<EntryModel>> getEntryDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.35:3001/security/viewNullEntry");
+    var apiUrl = Uri.parse("http://192.168.1.33:3001/security/viewNullEntry");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -74,6 +72,35 @@ class securityApiService{
     }
   }
 
+
+  Future<dynamic> Senddata(String securityId,description,name,phoneno,typeofuser,vehicle,vehicleNumber,vehicleName,vehicleType,eventType) async {
+    var client = http.Client();
+    var apiurl = Uri.parse("http://192.168.1.33:3001/security/entrylog");
+    var response = await client.post(apiurl, headers: <String, String>
+    {
+      "Content-Type": "application/Json;charset=UTF-8 "
+    }, body: jsonEncode(<String, String>
+    {
+      "securityId": securityId,
+      "description": description,
+      "name": name,
+      "phoneno": phoneno,
+      "typeofuser": typeofuser,
+      "vehicle": vehicle,
+      "vehicleNumber":vehicleNumber,
+      "vehicleName":vehicleName,
+      "vehicleType": vehicleType,
+      "eventType":eventType
+    }
+    )
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    }
+    else {
+      throw Exception("Failed");
+    }
+  }
 
 
 }

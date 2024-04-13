@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:feems/models/hodModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:feems/models/securityModel.dart';
@@ -8,7 +7,7 @@ class adminApiService{
 
   Future<List<HodModel>> getHodApi() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.35:3001/admin/pendingHODs");
+    var apiUrl = Uri.parse("http://192.168.1.33:3001/admin/pendingHODs");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -21,7 +20,7 @@ class adminApiService{
 
   Future<List<HodModel>> getAccptedHodApi() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.35:3001/admin/acceptedHODs");
+    var apiUrl = Uri.parse("http://192.168.1.33:3001/admin/acceptedHODs");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -34,7 +33,7 @@ class adminApiService{
 
   Future<List<SecurityModel>> getSecurityApi() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.35:3001/admin/allsecurity");
+    var apiUrl = Uri.parse("http://192.168.1.33:3001/admin/allsecurity");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -48,7 +47,7 @@ class adminApiService{
   Future<dynamic> acceptHOD(String hodId) async {
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.35:3001/admin/accepthod");
+    var apiUri = Uri.parse("http://192.168.1.33:3001/admin/accepthod");
     var response = await client.post(apiUri,
       headers: <String, String>
       {
@@ -74,7 +73,7 @@ class adminApiService{
   {
 
   var client =http.Client();
-  var apiUrl= Uri.parse("http://192.168.1.35:3001/admin/sendEmail");
+  var apiUrl= Uri.parse("http://192.168.1.33:3001/admin/sendEmail");
 
   var response =await client.post(apiUrl,
   headers: <String,String>{

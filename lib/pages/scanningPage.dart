@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:feems/pages/securityAddVehicleDetails.dart';
+import 'package:feems/pages/securityBottomNavigator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -141,10 +143,54 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 20,
                     ),
                     Container(
-                      child: Text(
-                        scannedText,
-                        style: TextStyle(fontSize: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            scannedText,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                height: 47,width: 120,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.blue[800],
+                                    side: BorderSide(color: Colors.blueAccent),
+                                  ),
+
+                                  onPressed: () {  Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationBarApp()));
+                                  },
+                                  child: Text('Back', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.blue[800]),),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 47,width: 120,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue[800],
+                                      foregroundColor: Colors.white,
+                                      side: BorderSide(color: Colors.blue),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50)
+                                      )
+                                  ),
+
+                                  onPressed:(){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>securityAddVehicle(
+                                        vehicleNumber:scannedText
+                                       )));
+                                  },
+                                  child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
+                      
                     )
                   ],
                 )),
@@ -177,7 +223,9 @@ class _MyHomePageState extends State<MyHomePage> {
     scannedText = "";
     for (TextBlock block in recognisedText.blocks) {
       for (TextLine line in block.lines) {
-        scannedText = scannedText + line.text + "\n";
+       // scannedText = scannedText + line.text + "\n";
+        scannedText = scannedText + line.text ;
+        scannedText=scannedText.trim();
       }
     }
     textScanning = false;

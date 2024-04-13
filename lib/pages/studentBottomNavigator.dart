@@ -63,15 +63,15 @@ class _NavigationExampleState extends State<NavigationExample> {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications,color: Colors.black,),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('status 1'),
+                  subtitle: Text('This is a status'),
                 ),
               ),
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('status 2'),
+                  subtitle: Text('This is a status'),
                 ),
               ),
             ],
