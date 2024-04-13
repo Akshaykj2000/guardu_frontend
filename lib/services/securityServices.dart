@@ -129,5 +129,29 @@ class securityApiService{
   }
 
 
+  Future<dynamic> exitVehicles(String entryId) async {
+
+    var client = http.Client();
+    var apiUri = Uri.parse("http://192.168.1.33:3001/security/updateExit");
+    var response = await client.post(apiUri,
+      headers: <String, String>
+      {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: jsonEncode(<String, String>
+      { '_id': entryId
+      }
+      ),
+    );
+    if (response.statusCode == 200) {
+      var resp = response.body;
+      return jsonDecode(resp);
+    }
+    else {
+      throw Exception("Failed to send data");
+    }
+  }
+
+
 
 }

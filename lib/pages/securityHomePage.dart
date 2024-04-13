@@ -20,6 +20,44 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
     data = securityApiService().getEntryDetails();
   }
 
+  void exitVehicle(String entryId) async{
+    try{
+      final response=  await securityApiService().exitVehicles(entryId);
+
+      if(response["status"]=="updated")
+      {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Exit",style: TextStyle(color: Colors.blue[800],fontWeight: FontWeight.bold,)),
+              content: Text("Exit details added successfully",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                  },
+                  child: Text("OK",style: TextStyle(color: Colors.black),),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      else
+      {
+        print("Error");
+      }
+      setState(() {
+        data = securityApiService().getEntryDetails();
+      });
+
+    }
+    catch(error){
+      print("Error on rejecting $error");
+    }
+  }
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,14 +98,14 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 10,),
+
                             ListTile(
                               title: Text(
                                 snapshot.data![index].vehicleName,
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue[800],
+                                  color: Colors.blue[900],
                                 ),
                               ),
                               subtitle: Column(
@@ -101,21 +139,20 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
                                   ),
 
                             ),
-                            SizedBox(height: 10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 SizedBox(width: 10),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue[800],
+                                    backgroundColor: Colors.blue[900],
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                   ),
                                   onPressed: () {
-                                    //acceptHOD(snapshot.data![index].id);
+                                    exitVehicle(snapshot.data![index].id);
                                   },
                                   child: Text(
                                     "Exit",

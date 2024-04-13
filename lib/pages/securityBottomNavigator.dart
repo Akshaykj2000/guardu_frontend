@@ -30,20 +30,22 @@ class _NavigationExampleState extends State<NavigationExample> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Colors.blue[900],
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.blue[200],
+        indicatorColor: Colors.white,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home,color: Colors.black,),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
+
           ),
+
           NavigationDestination(
             icon: Badge(child: Icon(Icons.smart_display,color: Colors.black,)),
             label: 'Log',
