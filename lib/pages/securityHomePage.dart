@@ -1,5 +1,6 @@
 import 'package:feems/models/entryModel.dart';
 import 'package:feems/pages/scanningPage.dart';
+import 'package:feems/pages/securityLogin.dart';
 import 'package:feems/services/securityServices.dart';
 import 'package:flutter/material.dart';
 
@@ -73,6 +74,14 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
           ),
         ],
       ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SecurityLogin()));
+            },
+            icon: Icon(Icons.logout, color: Colors.black87),
+          ),
+        ],
         shape: Border(
           bottom: BorderSide(
             color: Colors.black26,

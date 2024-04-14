@@ -1,5 +1,6 @@
 import 'package:feems/pages/addSecurity.dart';
 import 'package:feems/pages/adminHomePage.dart';
+import 'package:feems/pages/securityDisplayAll.dart';
 import 'package:feems/pages/studentLogin.dart';
 import 'package:feems/pages/viewHods.dart';
 import 'package:feems/pages/viewSecurity.dart';
@@ -22,7 +23,9 @@ class _AdminHomePageState extends State<menu> {
     adminHomeScreen(),
     Add_Security(),
     ViewHods(),
-    ViewSecurity()
+    ViewSecurity(),
+   // DisplayAll(),
+
   ];
 
   void _onItemTapped(int index) {
@@ -107,6 +110,16 @@ class _AdminHomePageState extends State<menu> {
                 Navigator.pop(context);
               },
             ),
+            // ListTile(
+            //   leading: Icon(Icons.view_list_outlined,color: Colors.black26,),
+            //   title: const Text('Log Details',style:TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+            //   onTap: () {
+            //     // Update the state of the app
+            //     _onItemTapped(4);
+            //     // Then close the drawer
+            //     Navigator.pop(context);
+            //   },
+            // ),
             ListTile(
               leading: Icon(Icons.logout_outlined,color: Colors.black26,),
               title: const Text('Logout',style:TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),

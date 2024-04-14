@@ -1,5 +1,6 @@
 import 'package:feems/pages/NonvehicleView.dart';
 import 'package:feems/pages/VehicleView.dart';
+import 'package:feems/pages/viewStudentExit.dart';
 import 'package:flutter/material.dart';
 
 class DisplayAll extends StatefulWidget {
@@ -54,7 +55,7 @@ class _DisplayAllState extends State<DisplayAll> {
                 children: [
                  VehicleView(),
                   NonVehicleView(),
-                  CompletedPage(),
+                  ViewStudentExit()
                 ],
               ),
             ),
@@ -66,13 +67,3 @@ class _DisplayAllState extends State<DisplayAll> {
 }
 
 
-class CompletedPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Completed Tasks Page'),
-      ),
-    );
-  }
-}

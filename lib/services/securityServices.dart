@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:feems/models/entryModel.dart';
+import 'package:feems/models/studentExitModel.dart';
 import 'package:http/http.dart' as http;
 
 class securityApiService{
@@ -192,5 +193,17 @@ class securityApiService{
     }
   }
 
+  Future<List<StudentExitModel>> studentExitDetails() async {
+    var client = http.Client();
+    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewStudentExit");
+
+    var response = await client.get(apiUrl);
+    if (response.statusCode == 200) {
+      return studentExitModelFromJson(response.body);
+    }
+    else {
+      return [];
+    }
+  }
 
 }
