@@ -152,6 +152,18 @@ class securityApiService{
     }
   }
 
+  Future<List<EntryModel>> getGuestDetails() async {
+    var client = http.Client();
+    var apiUrl = Uri.parse("http://192.168.1.33:3001/security/viewGustEntry");
+
+    var response = await client.get(apiUrl);
+    if (response.statusCode == 200) {
+      return entryModelFromJson(response.body);
+    }
+    else {
+      return [];
+    }
+  }
 
 
 }

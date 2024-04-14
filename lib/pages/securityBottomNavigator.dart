@@ -1,5 +1,6 @@
 import 'package:feems/pages/qrscanner.dart';
 import 'package:feems/pages/securityHomePage.dart';
+import 'package:feems/pages/securityViewGuest.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBarApp extends StatelessWidget {
@@ -41,16 +42,18 @@ class _NavigationExampleState extends State<NavigationExample> {
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home,color: Colors.black,),
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined,color: Colors.black),
             label: 'Home',
 
           ),
 
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.smart_display,color: Colors.black,)),
+            icon: Icon(Icons.folder_copy_outlined,color: Colors.black,),
+            selectedIcon: Icon(Icons.folder_copy,color: Colors.black,),
             label: 'Log',
           ),
           NavigationDestination(
+            selectedIcon:  Icon(Icons.qr_code_scanner_sharp,color: Colors.black,),
             icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
             label: 'Scanner',
           ),
@@ -58,30 +61,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         SecurityHomeScreen(),
-
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications,color: Colors.black,),
-                  title: Text('Display 1'),
-                  subtitle: Text('This is a Display'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Display 2'),
-                  subtitle: Text('This is a Display'),
-                ),
-              ),
-            ],
-          ),
-        ),
-
+        GuestEntryScreen(),
         QRScannerPage(),
       ][currentPageIndex],
     );

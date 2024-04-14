@@ -178,12 +178,9 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
               },
             ),
 
-
-
-
       ),
       floatingActionButton: FloatingActionButton(
-        foregroundColor: Colors.white,
+        foregroundColor: Colors.red,
         backgroundColor:Colors.black,
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()),);
