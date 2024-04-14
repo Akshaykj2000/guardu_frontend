@@ -20,43 +20,43 @@ class __GuestEntryScreenState extends State<GuestEntryScreen> {
     data = securityApiService().getGuestDetails();
   }
 
-  // void exitVehicle(String entryId) async{
-  //   try{
-  //     final response=  await securityApiService().exitVehicles(entryId);
-  //
-  //     if(response["status"]=="updated")
-  //     {
-  //       showDialog(
-  //         context: context,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //             title: Text("Exit",style: TextStyle(color: Colors.blue[800],fontWeight: FontWeight.bold,)),
-  //             content: Text("Exit details added successfully",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-  //             actions: [
-  //               TextButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context); // Close the dialog
-  //                 },
-  //                 child: Text("OK",style: TextStyle(color: Colors.black),),
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     }
-  //     else
-  //     {
-  //       print("Error");
-  //     }
-  //     setState(() {
-  //       data = securityApiService().getGuestDetails();
-  //     });
-  //
-  //   }
-  //   catch(error){
-  //     print("Error on rejecting $error");
-  //   }
-  // }
+  void exitVehicle(String entryId) async{
+    try{
+      final response=  await securityApiService().exitVehicles(entryId);
+
+      if(response["status"]=="updated")
+      {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Exit",style: TextStyle(color: Colors.blue[800],fontWeight: FontWeight.bold,)),
+              content: Text("Exit details added successfully",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                  },
+                  child: Text("OK",style: TextStyle(color: Colors.black),),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      else
+      {
+        print("Error");
+      }
+      setState(() {
+        data = securityApiService().getGuestDetails();
+      });
+
+    }
+    catch(error){
+      print("Error on rejecting $error");
+    }
+  }
 
 
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class __GuestEntryScreenState extends State<GuestEntryScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                //exitVehicle(snapshot.data![index].id);
+                                exitVehicle(snapshot.data![index].id);
                               },
                               child: Text(
                                 "Exit",

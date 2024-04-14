@@ -7,7 +7,7 @@ class studentApiService{
 
   Future<dynamic> loginApi(String email ,String password) async{
   var client =http.Client();
-  var url = Uri.parse("http://192.168.1.33:3001/student/login");
+  var url = Uri.parse("http://192.168.1.34:3001/student/login");
   var response =await client.post(url,
       headers: <String,String>{
         "Content-Type" :"application/json ; charset=UTF-8"
@@ -30,7 +30,7 @@ class studentApiService{
 
   Future<dynamic> Sentdata(String name,admissionNo,dob,age,contactno,gender,classname,department,emailid,password,requestStatus) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.33:3001/student/signup");
+    var apiurl = Uri.parse("http://192.168.1.34:3001/student/signup");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -60,7 +60,7 @@ class studentApiService{
 
   Future<dynamic> viewProfile(String user_ID ) async{
     var client =http.Client();
-    var url=Uri.parse("http://192.168.1.33:3001/student/myprofile");
+    var url=Uri.parse("http://192.168.1.34:3001/student/myprofile");
     try{
       var response =await client.post(url,
         body: jsonEncode({"studentId":user_ID}),
@@ -82,7 +82,7 @@ class studentApiService{
 
   Future<dynamic> studentExit(String studentId,String name,admissionno,department,classname,contactno,gender) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.33:3001/qrcode/storeStudentDetails");
+    var apiurl = Uri.parse("http://192.168.1.34:3001/qrcode/storeStudentDetails");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "

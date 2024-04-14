@@ -1,4 +1,5 @@
 import 'package:feems/pages/qrscanner.dart';
+import 'package:feems/pages/securityDisplayAll.dart';
 import 'package:feems/pages/securityHomePage.dart';
 import 'package:feems/pages/securityViewGuest.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _NavigationExampleState extends State<NavigationExample> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home,color: Colors.black,),
+            selectedIcon: Icon(Icons.home,color: Colors.blueAccent,),
             icon: Icon(Icons.home_outlined,color: Colors.black),
             label: 'Home',
 
@@ -49,11 +50,16 @@ class _NavigationExampleState extends State<NavigationExample> {
 
           NavigationDestination(
             icon: Icon(Icons.folder_copy_outlined,color: Colors.black,),
-            selectedIcon: Icon(Icons.folder_copy,color: Colors.black,),
+            selectedIcon: Icon(Icons.folder_copy,color: Colors.blueAccent,),
             label: 'Log',
           ),
           NavigationDestination(
-            selectedIcon:  Icon(Icons.qr_code_scanner_sharp,color: Colors.black,),
+            icon: Icon(Icons.view_list_outlined,color: Colors.black,),
+            selectedIcon: Icon(Icons.view_list_rounded,color: Colors.blueAccent),
+            label: 'Details',
+          ),
+          NavigationDestination(
+            selectedIcon:  Icon(Icons.qr_code_scanner_sharp,color: Colors.blueAccent,),
             icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
             label: 'Scanner',
           ),
@@ -62,6 +68,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       body: <Widget>[
         SecurityHomeScreen(),
         GuestEntryScreen(),
+        DisplayAll(),
         QRScannerPage(),
       ][currentPageIndex],
     );

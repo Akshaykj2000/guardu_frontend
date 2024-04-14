@@ -120,6 +120,7 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
 
                                     style: TextStyle(fontSize: 16, color: Colors.black,),
                                   ),
+
                                   Text(snapshot.data![index].entryTime ,
 
                                     style: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.w900),
@@ -145,8 +146,10 @@ class _SecurityHomeScreenState extends State<SecurityHomeScreen> {
                                 SizedBox(width: 10),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue[900],
-                                    foregroundColor: Colors.white,
+
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.blue[900],
+                                    side: BorderSide(color: Colors.black),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4),
                                     ),
