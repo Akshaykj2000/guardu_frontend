@@ -27,7 +27,7 @@ class _QRCodeImageScreenState extends State<QRCodeImageScreen> {
     print("Student id :" + studentId);
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.34:3001/qrcode/getQrCodeImage");
+    var apiUri = Uri.parse("http://192.168.1.36:3001/qrcode/getQrCodeImage");
     var response = await client.post(apiUri,
       headers: <String, String>
       {

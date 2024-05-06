@@ -166,7 +166,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
 
       var client =http.Client();
       var response = await client.post(
-        Uri.parse('http://192.168.1.34:3001/qrcode/validateQRCode'),
+        Uri.parse('http://192.168.1.36:3001/qrcode/validateQRCode'),
         body: jsonEncode({'studentName': name,'admissionNumber':number}),
         headers:<String,String>{
           "Content-Type": "application/json"

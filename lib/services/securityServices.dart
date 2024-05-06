@@ -4,12 +4,13 @@ import 'package:feems/models/entryModel.dart';
 import 'package:feems/models/studentExitModel.dart';
 import 'package:http/http.dart' as http;
 
+String localhost="192.168.1.36";
 class securityApiService{
 
 
   Future<dynamic> loginApi(String email ,String password) async{
     var client =http.Client();
-    var url = Uri.parse("http://192.168.1.34:3001/security/securitylogin");
+    var url = Uri.parse("http://"+localhost+":3001/security/securitylogin");
     var response =await client.post(url,
         headers: <String,String>{
           "Content-Type" :"application/json ; charset=UTF-8"
@@ -35,7 +36,7 @@ class securityApiService{
   {
 
   var client =http.Client();
-  var apiUrl= Uri.parse("http://192.168.1.34:3001/admin/addsecurity");
+  var apiUrl= Uri.parse("http://"+localhost+":3001/admin/addsecurity");
 
   var response =await client.post(apiUrl,
   headers: <String,String>{
@@ -62,7 +63,7 @@ class securityApiService{
 
   Future<List<EntryModel>> getEntryDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewNullEntry");
+    var apiUrl = Uri.parse("http://"+localhost+":3001/security/viewNullEntry");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -76,7 +77,7 @@ class securityApiService{
 
   Future<dynamic> Senddata(String securityId,description,name,phoneno,typeofuser,vehicle,vehicleNumber,vehicleName,vehicleType,eventType) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.34:3001/security/entrylog");
+    var apiurl = Uri.parse("http://"+localhost+":3001/security/entrylog");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -105,7 +106,7 @@ class securityApiService{
 
   Future<dynamic> SendGuestData(String securityId,description,name,phoneno,typeofuser,vehicle,eventType) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.34:3001/security/entrylog");
+    var apiurl = Uri.parse("http://"+localhost+":3001/security/entrylog");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -133,7 +134,7 @@ class securityApiService{
   Future<dynamic> exitVehicles(String entryId) async {
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.34:3001/security/updateExit");
+    var apiUri = Uri.parse("http://"+localhost+":3001/security/updateExit");
     var response = await client.post(apiUri,
       headers: <String, String>
       {
@@ -155,7 +156,7 @@ class securityApiService{
 
   Future<List<EntryModel>> getGuestDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewEntry");
+    var apiUrl = Uri.parse("http://"+localhost+":3001/security/viewEntry");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -169,7 +170,7 @@ class securityApiService{
 
   Future<List<EntryModel>> vehicleDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewvehicleentry");
+    var apiUrl = Uri.parse("http://"+localhost+":3001/security/viewvehicleentry");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -182,7 +183,7 @@ class securityApiService{
 
   Future<List<EntryModel>> nonVehicleDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewgustentry");
+    var apiUrl = Uri.parse("http://"+localhost+":3001/security/viewgustentry");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {
@@ -195,7 +196,7 @@ class securityApiService{
 
   Future<List<StudentExitModel>> studentExitDetails() async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://192.168.1.34:3001/security/viewStudentExit");
+    var apiUrl = Uri.parse("http://"+localhost+":3001/security/viewStudentExit");
 
     var response = await client.get(apiUrl);
     if (response.statusCode == 200) {

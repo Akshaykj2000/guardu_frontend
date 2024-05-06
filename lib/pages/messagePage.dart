@@ -1,3 +1,4 @@
+import 'package:feems/pages/studentBottomNavigator.dart';
 import 'package:feems/pages/studentHomePage.dart';
 import 'package:feems/services/hodServices.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ setState(() {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context); // Close the dialog
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>studentHomePage())) ;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentNavigationBarApp())) ;
                 },
                 child: Text("OK",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87)),
               ),

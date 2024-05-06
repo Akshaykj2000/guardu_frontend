@@ -1,5 +1,6 @@
 import 'package:feems/pages/qrcodePage.dart';
 import 'package:feems/pages/studentHomePage.dart';
+import 'package:feems/pages/studentMessageStatus.dart';
 import 'package:flutter/material.dart';
 
 class StudentNavigationBarApp extends StatelessWidget {
@@ -46,7 +47,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           ),
           NavigationDestination(
             icon: Badge(child: Icon(Icons.message_rounded,color: Colors.black,)),
-            label: 'Status',
+            label: 'Details',
           ),
           NavigationDestination(
             icon: Icon(Icons.qr_code_scanner,color: Colors.black,),
@@ -56,29 +57,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         studentHomePage(),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications,color: Colors.black,),
-                  title: Text('status 1'),
-                  subtitle: Text('This is a status'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('status 2'),
-                  subtitle: Text('This is a status'),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-
+        myExitDetails(),
         QRCodeImageScreen(),
       ][currentPageIndex],
     );

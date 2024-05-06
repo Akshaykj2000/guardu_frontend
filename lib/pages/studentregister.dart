@@ -52,25 +52,63 @@ class _StudentRegisterState extends State<StudentRegister> {
   }
 
   void regUser() async {
-    final response = await studentApiService().Sentdata(
-      name.text, admissionNo.text, dob.text, age.text, contactno.text, gender,
-        classname,department,emailid.text,password.text,requestStatus
-    );
 
-    if (response['status'] == 'success') {
-      print("Successfully added");
 
+    if (name.text.isNotEmpty && admissionNo.text.isNotEmpty && dob.text.isNotEmpty && age.text.isNotEmpty && contactno.text.isNotEmpty && gender != null && classname != null && department != null && emailid.text.isNotEmpty && password.text.isNotEmpty ) {
+      final response = await studentApiService().Sentdata(
+          name.text,
+          admissionNo.text,
+          dob.text,
+          age.text,
+          contactno.text,
+          gender,
+          classname,
+          department,
+          emailid.text,
+          password.text,
+          requestStatus
+      );
+
+      if (response['status'] == 'success') {
+        print("Successfully added");
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Success"),
+              content: Text("Signup successfull",
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage())); // Go back to the previous screen
+                  },
+                  child: Text("OK", style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black87)),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        print("Error");
+      }
+    }
+    else{
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Success"),
-            content: Text("Signup successfull",style: TextStyle(fontWeight: FontWeight.bold),),
+            title: Text("Fill all the fields"),
+            content: Text("All fields are required...",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent),),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context); // Close the dialog
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage())) ;// Go back to the previous screen
                 },
                 child: Text("OK",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87)),
               ),
@@ -78,10 +116,6 @@ class _StudentRegisterState extends State<StudentRegister> {
           );
         },
       );
-
-
-    } else {
-      print("Error");
     }
   }
 

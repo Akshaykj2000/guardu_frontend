@@ -1,6 +1,7 @@
 import 'package:feems/pages/myProfile.dart';
 import 'package:feems/pages/qrcodePage.dart';
 import 'package:feems/pages/studentLogin.dart';
+import 'package:feems/pages/studentMessageStatus.dart';
 import 'package:feems/pages/studentRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,11 +103,11 @@ class _studentHomePageState extends State<studentHomePage> {
                     children: [
                       HomeCard(
                         onPress: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>FeedbackPage()));
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=>myExitDetails()));
                         },
-                        icon: Icons.notifications,
-                        title: 'Notification',
-                        subtitle: 'See your notification',
+                        icon: Icons.message,
+                        title: 'Details',
+                        subtitle: 'my exit details',
                       ),
                       HomeCard(
                         onPress: () {

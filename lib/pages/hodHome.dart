@@ -1,4 +1,6 @@
 import 'package:feems/pages/facultyHomePage.dart';
+import 'package:feems/pages/hodViewStudent.dart';
+import 'package:feems/pages/viewStudentExit.dart';
 import 'package:flutter/material.dart';
 
 class HodNavigationBarApp extends StatelessWidget {
@@ -46,8 +48,9 @@ class _NavigationExampleState extends State<NavigationExample> {
           ),
 
           NavigationDestination(
-            icon: Icon(Icons.account_box,),
-            label: 'Myprofile',
+            selectedIcon: Icon(Icons.view_list_outlined,color: Colors.white,),
+            icon: Icon(Icons.view_list_sharp,),
+            label: 'Student Log',
           ),
 
 
@@ -55,7 +58,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
      FacultyHomeScreen(),
-     FacultyHomeScreen(),
+        HodViewStudentExit()
 
 
       ][currentPageIndex],

@@ -4,11 +4,12 @@ import 'package:feems/models/hodModel.dart';
 import 'package:feems/models/messageModel.dart';
 import 'package:http/http.dart' as http;
 
+String localhost="192.168.1.36";
 class hodApiService{
 
   Future<dynamic> loginApi(String email ,String password) async{
     var client =http.Client();
-    var url = Uri.parse("http://192.168.1.34:3001/hod/login");
+    var url = Uri.parse("http://"+localhost+":3001/hod/login");
     var response =await client.post(url,
         headers: <String,String>{
           "Content-Type" :"application/json ; charset=UTF-8"
@@ -32,7 +33,7 @@ class hodApiService{
 
   Future<dynamic> Sentdata(String hodname,department,gender,dob,age,phone,status,email,hodpassword) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.34:3001/hod/signup");
+    var apiurl = Uri.parse("http://"+localhost+":3001/hod/signup");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -61,7 +62,7 @@ class hodApiService{
 
   Future<dynamic> SendRequest(String hodId,studentId,subject,description,department) async {
     var client = http.Client();
-    var apiurl = Uri.parse("http://192.168.1.34:3001/student/requestMessage");
+    var apiurl = Uri.parse("http://"+localhost+":3001/student/requestMessage");
     var response = await client.post(apiurl, headers: <String, String>
     {
       "Content-Type": "application/Json;charset=UTF-8 "
@@ -87,7 +88,7 @@ class hodApiService{
   Future<List<MessageModel>> getMessagesForHOD(String hodId) async {
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.34:3001/student/requestDetails");
+    var apiUri = Uri.parse("http://"+localhost+":3001/student/requestDetails");
     var response = await client.post(apiUri,
       headers: <String, String>
       {
@@ -109,7 +110,7 @@ class hodApiService{
   Future<dynamic> acceptStudentMessage(String requestId,String studentId,String admissionno,String studentName) async {
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.34:3001/qrcode/createQrCode");
+    var apiUri = Uri.parse("http://"+localhost+":3001/qrcode/createQrCode");
     var response = await client.post(apiUri,
       headers: <String, String>
       {
@@ -136,7 +137,7 @@ class hodApiService{
   Future<dynamic> rejectMessage(String requestId) async {
 
     var client = http.Client();
-    var apiUri = Uri.parse("http://192.168.1.34:3001/student/rejectMessage");
+    var apiUri = Uri.parse("http://"+localhost+":3001/student/rejectMessage");
     var response = await client.post(apiUri,
       headers: <String, String>
       {
@@ -155,6 +156,7 @@ class hodApiService{
       throw Exception("Failed to send data");
     }
   }
+
 
 
 
